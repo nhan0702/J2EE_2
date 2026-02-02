@@ -28,7 +28,7 @@ public class BookService {
     }
 
     public void updateBook(int id, Book updatedBook) {
-                books.stream()
+        books.stream()
                 .filter(book -> book.getId() == id)
                 .findFirst()
                 .ifPresent(book -> {
@@ -38,6 +38,14 @@ public class BookService {
     }
 
     public void deleteBook(int id) {
-         books.removeIf(book -> book.getId() == id);
+        books.removeIf(book -> book.getId() == id);
+        // Cập nhật ID sau khi xóa sách
+        reorganizeBookIds();
+    }
+
+    public void reorganizeBookIds() {
+        for (int i = 0; i < books.size(); i++) {
+            books.get(i).setId(i + 1);
+        }
     }
 }

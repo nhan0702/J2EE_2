@@ -1,7 +1,5 @@
 package com.example.demo.model;
 
-
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +14,4 @@ public class Book {
     private String title;
     private String author;
 
-    
 }
