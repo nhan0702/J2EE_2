@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sửa Sách</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .btn-warning {
+            background-color: #ed8936;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #dd6b20;
+        }
+
+        .btn-secondary {
+            background-color: #a0aec0;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #718096;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <h1>📚 Quản Lý Sách</h1>
+            <nav>
+                <a href="/">Trang Chủ</a>
+                <a href="/books">Danh Sách Sách</a>
+                <a href="/books/add">Thêm Sách</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2>Sửa Sách</h2>
+
+        <div class="form-container">
+            <form th:action="@{/books/update/{id}(id=${book.id})}" method="POST">
+                <div class="form-group">
+                    <label for="title">Tiêu Đề:</label>
+                    <input type="text" id="title" name="title" th:value="${book.title}" required
+                        placeholder="Nhập tiêu đề sách">
+                </div>
+
+                <div class="form-group">
+                    <label for="author">Tác Giả:</label>
+                    <input type="text" id="author" name="author" th:value="${book.author}" required
+                        placeholder="Nhập tên tác giả">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-warning">Cập Nhật</button>
+                    <a href="/books" class="btn btn-secondary">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Hệ Thống Quản Lý Sách. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

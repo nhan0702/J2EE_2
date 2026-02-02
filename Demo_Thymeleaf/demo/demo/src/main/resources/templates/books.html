@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Sách</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 4px;
+            border-radius: 4px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #5568d3;
+        }
+
+        .btn-warning {
+            background-color: #ed8936;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #dd6b20;
+        }
+
+        .btn-danger {
+            background-color: #f56565;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #e53e3e;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        th {
+            background-color: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .action-cell {
+            display: flex;
+            gap: 5px;
+        }
+
+        .empty-message {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            color: #666;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <h1>📚 Quản Lý Sách</h1>
+            <nav>
+                <a href="/">Trang Chủ</a>
+                <a href="/books">Danh Sách Sách</a>
+                <a href="/books/add">Thêm Sách</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2>
+            <span>Danh Sách Sách</span>
+            <a href="/books/add" class="btn btn-primary">+ Thêm Sách Mới</a>
+        </h2>
+
+        <div th:if="${books != null and books.size() > 0}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tiêu Đề</th>
+                        <th>Tác Giả</th>
+                        <th>Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="book : ${books}">
+                        <td th:text="${book.id}"></td>
+                        <td th:text="${book.title}"></td>
+                        <td th:text="${book.author}"></td>
+                        <td class="action-cell">
+                            <a th:href="@{/books/edit/{id}(id=${book.id})}" class="btn btn-warning">Sửa</a>
+                            <a th:href="@{/books/delete/{id}(id=${book.id})}" class="btn btn-danger"
+                                onclick="return confirm('Bạn chắc chắn muốn xóa?');">Xóa</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="empty-message" th:if="${books == null or books.size() == 0}">
+            <p>Không có sách nào. <a href="/books/add">Thêm sách mới</a></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Hệ Thống Quản Lý Sách. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
